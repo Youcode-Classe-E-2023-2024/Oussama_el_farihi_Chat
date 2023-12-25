@@ -23,7 +23,7 @@ class User
     static function getAll()
     {
         global $db;
-        $result = $db->query("SELECT * FROM users");
+        $result = $db->query("SELECT * FROM user");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
