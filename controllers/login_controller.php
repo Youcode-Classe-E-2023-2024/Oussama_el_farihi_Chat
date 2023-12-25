@@ -1,27 +1,34 @@
 <?php
 
-class LoginController {
-    public function login() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+global $db;
 
-            $user = UserModel::login($email, $password);
+if (isset($_POST['submit'])) {
+    $email = $db->real_escape_string($_POST['email']);
+    $password = $_POST['password'];
 
-            if ($user) {
-                // Successful login
-                $_SESSION['user_id'] = $user['id_user']; // Store user ID in session
-                header('Location: chat_room.php'); // Redirect to chat room or another page
-                exit();
-            } else {
-                // Invalid credentials, display an error message
-                $error_message = "Invalid email or password";
-            }
+    $stmt = $db->prepare("SELECT id_user, email, password FROM user WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+
+        if (password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['name'];
+            $_SESSION['user_email'] = $user['email'];
+
+            header("Location: index.php?page=home"); 
+            exit;
+        } else {
+            $error_message = "Invalid email or password.";
         }
-
-        // Load the login view
-        include('views/login_view.php');
+    } else {
+        $error_message = "Invalid email or password.";
     }
+
+    $stmt->close();
 }
 
 ?>

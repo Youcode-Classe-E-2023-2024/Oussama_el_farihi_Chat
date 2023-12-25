@@ -1,25 +1,24 @@
 <?php
 
-class RegisterController {
-    public function register() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+global $db;
+if (isset($_POST['submit'])) {
+    $name = mysqli_real_escape_string($db, $_POST['name']);
+    $email = mysqli_real_escape_string($db, $_POST['email']);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-            if (UserModel::register($name, $email, $password)) {
-                // Registration successful, redirect to login page
-                header('Location: ?page=login');
-                exit();
-            } else {
-                // Registration failed, display an error message
-                $error_message = "Registration failed. Please try again.";
-            }
-        }
+    
+    $stmt = $db->prepare("INSERT INTO user (name, email, password) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $name, $email, $password);
+    $result = $stmt->execute();
 
-        // Load the registration view
-        include('views/register_view.php');
+    if ($result) {
+        header('Location: ../views/login_view.php'); 
+        exit();
+    } else {
+        $error_message = "Registration failed: " . $db->error;
+        include('../views/register_view.php'); 
     }
 }
- 
+
+
 ?>
