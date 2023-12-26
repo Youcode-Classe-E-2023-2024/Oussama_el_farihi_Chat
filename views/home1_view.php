@@ -69,26 +69,6 @@
      </div>
     </div>
    </div>
-   <div class="msg online">
-    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%282%29.png" alt="" />
-    <div class="msg-detail">
-     <div class="msg-username">Lea Debere</div>
-     <div class="msg-content">
-      <span class="msg-message">Shoreditch iPhone jianbing</span>
-      <span class="msg-date">45m</span>
-     </div>
-    </div>
-   </div>
-   <div class="msg online">
-    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%281%29+%281%29.png" alt="" />
-    <div class="msg-detail">
-     <div class="msg-username">Jordan Smith</div>
-     <div class="msg-content">
-      <span class="msg-message">Snackwave craft beer raclette, beard kombucha </span>
-      <span class="msg-date">2h</span>
-     </div>
-    </div>
-   </div>
    <div class="msg">
     <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%284%29+%281%29.png" alt="" />
     <div class="msg-detail">
@@ -116,26 +96,6 @@
      <div class="msg-content">
       <span class="msg-message">I'm lucky I'm in love with my best friend</span>
       <span class="msg-date">4h</span>
-     </div>
-    </div>
-   </div>
-   <div class="msg">
-    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%288%29.png" alt="" />
-    <div class="msg-detail">
-     <div class="msg-username">Chiwa Lauren</div>
-     <div class="msg-content">
-      <span class="msg-message">Pabst af 3 wolf moon</span>
-      <span class="msg-date">28m</span>
-     </div>
-    </div>
-   </div>
-   <div class="msg">
-    <img class="msg-profile" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3364143/download+%289%29.png" alt="" />
-    <div class="msg-detail">
-     <div class="msg-username">Caroline Orange</div>
-     <div class="msg-content">
-      <span class="msg-message">Bespoke aesthetic lyft woke cornhole</span>
-      <span class="msg-date">35m</span>
      </div>
     </div>
    </div>
@@ -333,8 +293,19 @@
   </div>
  </div>
 </div>
+<!-- Popup Modal for Adding Group Chat -->
+<div id="addGroupChatModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <h2>Add Group Chat</h2>
+    <form id="addGroupChatForm">
+      <input type="text" placeholder="Group Chat Name" name="group_name" required>
+      <input type="text" placeholder="Group Chat Name" name="group_name" required>
+      <button type="submitF" class="submit-btn">Create Group</button>
+    </form>
+  </div>
+</div>
 <!-- partial -->
   <script  src="../assets/js/script.js"></script>
-
 </body>
 </html>
