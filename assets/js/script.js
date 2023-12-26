@@ -15,34 +15,27 @@ toggleButton.addEventListener('click', () => {
 });
 
 
-//pop form
+//pop up form
 document.addEventListener("DOMContentLoaded", function() {
   var modal = document.getElementById("addGroupChatModal");
   var addButton = document.querySelector(".add");
   var closeButton = document.querySelector(".close-button");
 
- 
   function toggleModal() {
-    if (modal.style.display === "flex") {
-      modal.style.display = "none";
-    } else {
-      modal.style.display = "flex";
-    }
+    modal.style.display = modal.style.display === "none" ? "flex" : "none";
   }
 
-  
   addButton.addEventListener("click", function(event) {
-    event.stopPropagation(); 
+    event.stopPropagation(); // Prevents the event from bubbling up to the window
     toggleModal();
   });
-
 
   closeButton.addEventListener("click", function(event) {
-    event.stopPropagation(); 
+    event.stopPropagation(); // Prevents the event from bubbling up to the window
     toggleModal();
   });
 
-
+  // Close the modal when clicking outside of it
   window.addEventListener("click", function(event) {
     if (event.target === modal) {
       toggleModal();

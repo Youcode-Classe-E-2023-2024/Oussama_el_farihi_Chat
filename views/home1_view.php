@@ -300,7 +300,14 @@
     <h2>Add Group Chat</h2>
     <form id="addGroupChatForm">
       <input type="text" placeholder="Group Chat Name" name="group_name" required>
-      <input type="text" placeholder="Group Chat Name" name="group_name" required>
+        <!-- Multi-select input for users -->
+    <select name="users[]" multiple required>
+        <option value="user1">User 1</option>
+        <option value="user2">User 2</option>
+        <option value="user3">User 3</option>
+        <!-- Add more user options here -->
+    </select>
+
       <button type="submitF" class="submit-btn">Create Group</button>
     </form>
   </div>
