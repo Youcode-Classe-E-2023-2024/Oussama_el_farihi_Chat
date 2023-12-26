@@ -59,6 +59,7 @@ class Room
     }
 
 
+
     static function getAllRooms()
     {
         global $db;

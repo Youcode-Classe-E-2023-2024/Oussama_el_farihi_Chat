@@ -293,22 +293,19 @@
   </div>
  </div>
 </div>
-<!-- Popup Modal for Adding Group Chat -->
+<!-- Popup form -->
 <div id="addGroupChatModal" class="modal">
   <div class="modal-content">
     <span class="close-button">&times;</span>
     <h2>Add Group Chat</h2>
-    <form id="addGroupChatForm">
-      <input type="text" placeholder="Group Chat Name" name="group_name" required>
-        <!-- Multi-select input for users -->
-    <select name="users[]" multiple required>
-        <option value="user1">User 1</option>
-        <option value="user2">User 2</option>
-        <option value="user3">User 3</option>
-        <!-- Add more user options here -->
-    </select>
-
-      <button type="submitF" class="submit-btn">Create Group</button>
+    <form id="addGroupChatForm" method="post" action="index.php?page=home1">
+      <input name="name_room" type="text" placeholder="Group Chat Name" required>
+<select name="users[]" multiple required>
+    <?php foreach($users as $user): ?>
+        <option value="<?= $user['id_user'] ?>"><?= htmlspecialchars($user['name']) ?></option>
+    <?php endforeach; ?>
+</select>
+      <button name="submitF" type="submit" class="submit-btn">Create Group</button>
     </form>
   </div>
 </div>
