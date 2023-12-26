@@ -6,12 +6,14 @@ class Room
     private $name;
     private $creationDate;
     private $creatorId;
+    private $picture_name;
 
 
-    public function __construct($name, $creatorId, $creationDate = null)
+    public function __construct($name, $creatorId, $picture_name, $creationDate = null)
     {
         $this->name = $name;
         $this->creatorId = $creatorId;
+        $this->picture_name = $picture_name;
         $this->creationDate = $creationDate ?: date('Y-m-d H:i:s');
     }
 
@@ -51,8 +53,8 @@ class Room
     public function save()
     {
         global $db;
-        $stmt = $db->prepare("INSERT INTO room (name_room, date_creation, id_createur) VALUES (?, ?, ?)");
-        $stmt->bind_param("ssi", $this->name, $this->creationDate, $this->creatorId);
+        $stmt = $db->prepare("INSERT INTO room (name_room, date_creation, id_createur, img) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssis", $this->name, $this->creationDate, $this->creatorId, $this->picture_name);
         $stmt->execute();
         $this->id = $db->insert_id;
         $stmt->close();

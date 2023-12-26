@@ -298,7 +298,8 @@
   <div class="modal-content">
     <span class="close-button">&times;</span>
     <h2>Add Group Chat</h2>
-    <form id="addGroupChatForm" method="post" action="index.php?page=home1">
+    <form id="addGroupChatForm" method="post" action="index.php?page=home1" enctype="multipart/form-data">
+    <input type="file" name="picture">
       <input name="name_room" type="text" placeholder="Group Chat Name" required>
 <select name="users[]" multiple required>
     <?php foreach($users as $user): ?>
