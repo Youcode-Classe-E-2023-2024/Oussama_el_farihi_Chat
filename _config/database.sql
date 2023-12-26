@@ -14,6 +14,7 @@ CREATE TABLE room (
     name_room VARCHAR(255),
     date_creation DATETIME,
     id_createur INT,
+    img VARCHAR(255),
     FOREIGN KEY (id_createur) REFERENCES user(id_user)
 );
 
