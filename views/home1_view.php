@@ -52,13 +52,14 @@
         $rooms_title = $room['name_room'];
     ?>
         <a href="index.php?page=home1&room=<?php echo $rooms_id; ?>" class="msg online">
-        <img class="msg-profile" src="../assets/img/<?php echo htmlspecialchars($rooms_picture); ?>" alt="" />
+        <img class="msg-profile" src="./assets/img/<?php echo htmlspecialchars($rooms_picture); ?>" alt="" />
         <div class="msg-detail">
             <div class="msg-username"><?php echo htmlspecialchars($rooms_title); ?></div>
         </div>
     </a>
     <?php endforeach; ?>
 </div>
+
 <!-------dynamic group fetched-------->
    <button class="add"></button>
    <div class="overlay"></div>
@@ -83,6 +84,7 @@
     }
     ?>
 </div>
+
 <!--------fetch message end----->
  <!-- Footer area for sending messages -->
  <div class="chat-area-footer">
@@ -103,7 +105,6 @@
     <input type="text" id="messageInput" name="messageInput" placeholder="Type something here...">
     <button type="button" id="sendButton" class="send-message-btn">Send</button>
 </form>
-
   </div>
   <!------end chat section-------->
    
@@ -125,6 +126,21 @@
       <button name="submitF" type="submit" class="submit-btn">Create Group</button>
     </form>
   </div>
+</div><!-- Add a new section to display room members -->
+<div class="room-members">
+    <?php
+    if (isset($_GET['room'])) {
+        $roomId = $_GET['room'];
+        $roomMembers = UserRoom::getRoomMembers($roomId);
+
+        echo '<h3>Room Members:</h3>';
+        echo '<ul>';
+        foreach ($roomMembers as $memberName) {
+            echo '<li>' . htmlspecialchars($memberName) . '</li>';
+        }
+        echo '</ul>';
+    }
+    ?>
 </div>
 <!-- partial -->
   <script  src="../assets/js/script.js"></script>
