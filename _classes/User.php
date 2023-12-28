@@ -7,17 +7,11 @@ class User
     public $username;
     private $password;
 
-    public function __construct($id)
+    public function __construct($username, $email, $password)
     {
-        global $db;
-
-        $result = $db->query("SELECT * FROM users WHERE users_id = '$id'");
-        $user = $result->fetch_assoc();
-
-        $this->id = $user['users_id'];
-        $this->email = $user['users_email'];
-        $this->username = $user['users_username'];
-        $this->password = $user['users_password'];
+        $this->username = $username;
+        $this->email = $email;
+        $this->setPassword($password);
     }
 
     static function getAll()
@@ -30,11 +24,42 @@ class User
     function edit()
     {
         global $db;
-        return $db->query("UPDATE users SET users_email = '$this->email', users_username = '$this->username' WHERE users_id = '$this->id'");
+        return $db->query("UPDATE user SET email = '$this->email', name = '$this->username' WHERE user_id = '$this->id'");
     }
 
     public function setPassword($pwd)
     {
         $this->password = password_hash($pwd, PASSWORD_DEFAULT);
+    }
+
+    static function getUser($email, $password) {
+        global $db;
+        $stmt = $db->prepare("SELECT id_user, name, password FROM user WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $stmt->bind_result($userId, $username, $hashedPass);
+        $stmt->fetch();
+        $stmt->close();
+    
+        if (!$hashedPass) {
+            echo "Invalid email or password.";
+        } else {
+            if (password_verify($password, $hashedPass)) {
+                $_SESSION["user_id"] = $userId;
+                $_SESSION["username"] = $username;
+    
+                header("Location: index.php?page=home1");
+                exit;
+            } else {
+                echo "Invalid email or password.";
+            }
+        }
+    }
+    
+
+    function insertUser(){
+        global $db;
+        $db->query("INSERT INTO user (name, email, password) VALUES 
+        ('$this->username', '$this->email', '$this->password')");
     }
 }
