@@ -52,7 +52,7 @@
         $rooms_title = $room['name_room'];
     ?>
         <a href="index.php?page=home1&room=<?php echo $rooms_id; ?>" class="msg online">
-        <img class="msg-profile" src="../assets/img/<?php echo htmlspecialchars($rooms_picture); ?>" alt="" />
+        <img class="msg-profile" src="./assets/img/<?php echo htmlspecialchars($rooms_picture); ?>" alt="" />
         <div class="msg-detail">
             <div class="msg-username"><?php echo htmlspecialchars($rooms_title); ?></div>
         </div>
