@@ -32,13 +32,12 @@ class User
         $this->password = password_hash($pwd, PASSWORD_DEFAULT);
     }
 
-    static function getUser($email, $password)
-    {
+    static function getUser($email, $password) {
         global $db;
-        $stmt = $db->prepare("SELECT id_user, password FROM user WHERE email = ?");
+        $stmt = $db->prepare("SELECT id_user, name, password FROM user WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
-        $stmt->bind_result($userId, $hashedPass);
+        $stmt->bind_result($userId, $username, $hashedPass);
         $stmt->fetch();
         $stmt->close();
     
@@ -46,14 +45,17 @@ class User
             echo "Invalid email or password.";
         } else {
             if (password_verify($password, $hashedPass)) {
-                session_start();
-                $_SESSION["user_id"] = $userId; 
+                $_SESSION["user_id"] = $userId;
+                $_SESSION["username"] = $username;
+    
                 header("Location: index.php?page=home1");
+                exit;
             } else {
                 echo "Invalid email or password.";
             }
         }
     }
+    
 
     function insertUser(){
         global $db;

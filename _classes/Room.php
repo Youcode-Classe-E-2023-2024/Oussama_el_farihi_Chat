@@ -60,14 +60,14 @@ class Room
         $stmt->close();
     }
 
-
-
     static function getAllRooms()
     {
         global $db;
         $result = $db->query("SELECT * FROM room");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    
 }
 
 ?>

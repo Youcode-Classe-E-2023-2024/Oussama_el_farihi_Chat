@@ -21,24 +21,65 @@ document.addEventListener("DOMContentLoaded", function() {
   var addButton = document.querySelector(".add");
   var closeButton = document.querySelector(".close-button");
 
-  function toggleModal() {
-    modal.style.display = modal.style.display === "none" ? "flex" : "none";
-  }
 
-  addButton.addEventListener("click", function(event) {
-    event.stopPropagation(); // Prevents the event from bubbling up to the window
-    toggleModal();
+  modal.style.display = "none";
+
+  addButton.addEventListener("click", function() {
+      modal.style.display = "flex";  
   });
 
-  closeButton.addEventListener("click", function(event) {
-    event.stopPropagation(); // Prevents the event from bubbling up to the window
-    toggleModal();
+  closeButton.addEventListener("click", function() {
+      modal.style.display = "none"; 
   });
+});
 
-  // Close the modal when clicking outside of it
-  window.addEventListener("click", function(event) {
-    if (event.target === modal) {
-      toggleModal();
-    }
+
+
+//sending message useing ajax
+document.getElementById('sendButton').addEventListener('click', function() {
+  var userId = document.getElementById('userIdInput').value;
+  var roomId = document.getElementById('roomIdInput').value;
+  var message = document.getElementById('messageInput').value;
+
+  $.ajax({
+      url: 'index.php?page=home1', // Update with the actual path
+      type: 'POST',
+      data: {
+          user_id: userId,
+          room_id: roomId,
+          messageInput: message
+      },
+      success: function(response) {
+          document.getElementById('messageInput').value = '';
+      },
+      error: function() {
+          console.log('Error sending message');
+      }
+  });
+});
+
+
+//getting message using ajax
+$('.msg.online').click(function(event) {
+  event.preventDefault();
+  var roomId = $(this).attr('href').split('=')[1];
+
+  $.ajax({
+      url: 'index.php?page=home1' + roomId,
+      type: 'GET',
+      dataType: 'json',
+      success: function(messages) {
+          // Handle the fetched messages, e.g., append them to the chat area
+          var chatArea = $('#chat-section');
+          chatArea.empty(); // Clear previous messages
+          messages.forEach(function(message) {
+              var messageClass = message.id_user == userId ? 'owner' : '';
+              var messageHtml = '<div class="chat-msg ' + messageClass + '"><span>' + message.contenu + '</span></div>';
+              chatArea.append(messageHtml);
+          });
+      },
+      error: function() {
+          console.log('Error fetching messages');
+      }
   });
 });

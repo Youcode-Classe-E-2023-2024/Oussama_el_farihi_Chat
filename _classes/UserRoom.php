@@ -18,6 +18,7 @@ class UserRoom {
         $stmt->bind_param("iis", $this->userId, $this->roomId, $this->role);
         $stmt->execute();
         $stmt->close();
+        
     }
 }
 
