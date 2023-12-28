@@ -60,26 +60,3 @@ document.getElementById('sendButton').addEventListener('click', function() {
 
 
 //getting message using ajax
-$('.msg.online').click(function(event) {
-  event.preventDefault();
-  var roomId = $(this).attr('href').split('=')[1];
-
-  $.ajax({
-      url: 'index.php?page=home1' + roomId,
-      type: 'GET',
-      dataType: 'json',
-      success: function(messages) {
-          // Handle the fetched messages, e.g., append them to the chat area
-          var chatArea = $('#chat-section');
-          chatArea.empty(); // Clear previous messages
-          messages.forEach(function(message) {
-              var messageClass = message.id_user == userId ? 'owner' : '';
-              var messageHtml = '<div class="chat-msg ' + messageClass + '"><span>' + message.contenu + '</span></div>';
-              chatArea.append(messageHtml);
-          });
-      },
-      error: function() {
-          console.log('Error fetching messages');
-      }
-  });
-});

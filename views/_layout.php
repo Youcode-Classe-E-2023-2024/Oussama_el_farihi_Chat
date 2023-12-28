@@ -16,5 +16,6 @@
     </main>
 
     <footer></footer>
+    <script src="<?= PATH ?>assets/js/script.js"></script>
 </body>
 </html>

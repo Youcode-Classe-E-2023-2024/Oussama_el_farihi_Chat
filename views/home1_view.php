@@ -71,12 +71,16 @@
    <!--------fetch message----->
    <div class="chat-area-main" id="chat-section">
     <?php 
-    if (isset($_GET['fetchMessages']) && isset($_GET['room_id'])) {
-      $roomId = $_GET['room_id'];
-      $messages = Message::getMessagesByRoom($roomId); // Replace this with your method for fetching messages
-      echo json_encode($messages);
-      exit();
-  }
+    if(isset($_GET['room'])) {
+        $roomId = $_GET['room'];
+        $messages = Message::getMessagesByRoom($roomId);
+        
+        foreach ($messages as $message): ?>
+            <div class="chat-msg <?= $message['id_user'] == $_SESSION['user_id'] ? 'owner' : '' ?>">
+                <span><?= htmlspecialchars($message['contenu']) ?></span>
+            </div>
+        <?php endforeach; 
+    }
     ?>
 </div>
 <!--------fetch message end----->
