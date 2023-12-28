@@ -20,6 +20,29 @@ class UserRoom {
         $stmt->close();
         
     }
+
+    public static function getRoomMembers($roomId) {
+        global $db;
+        
+        $members = array();
+
+        $query = "SELECT u.name FROM user_room ur
+                  INNER JOIN user u ON ur.id_user = u.id_user
+                  WHERE ur.id_room = ?";
+        
+        $stmt = $db->prepare($query);
+        $stmt->bind_param("i", $roomId);
+        $stmt->execute();
+        $stmt->bind_result($memberName);
+
+        while ($stmt->fetch()) {
+            $members[] = $memberName;
+        }
+
+        $stmt->close();
+
+        return $members;
+    }
 }
 
 
